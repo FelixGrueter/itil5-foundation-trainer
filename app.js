@@ -430,12 +430,12 @@ const filterTitle = (topics, exams) => examTitle(exams) + topicTitle(topics);
 function review(pos){ state.view = 'exam'; state.reviewMode = true; state.pos = pos; render(); window.scrollTo(0, 0); }
 function score(){ const s = state.session; return s.items.filter(it => isRight(it.q, s.answers[it.q.id])).length; }
 
-/* Begründungszeilen: richtige Option(en) zuerst, dann die eigene falsche Antwort, dann die übrigen.
+/* Begründungszeilen in derselben Reihenfolge wie die Antwortoptionen darüber (A, B, C …); richtig/eigene falsche Antwort
+   erkennt man an der Farbe (und am Text „Richtig“ bzw. „Deine Antwort“), nicht an der Position.
    Falsche Optionen mit identischem Text (z. B. Zuordnungsblöcke: nur Literatur-Verweis wie „Siehe 5.5“) werden zusammengefasst. */
 function explRows(item, chosen){
   const q = item.q, ok = isRight(q, chosen), rows = [];
-  const order = [...item.perm].sort((a, b) => (isRight(q, b) - isRight(q, a)) || ((b === chosen) - (a === chosen)) || (item.perm.indexOf(a) - item.perm.indexOf(b)));
-  order.forEach(key => {
+  [...item.perm].forEach(key => {
     const right = isRight(q, key), mine = key === chosen && !ok;
     const same = !right && !mine && rows.find(r => !r.right && !r.mine && r.text === q.expl[key]);
     if(same) same.keys.push(key); else rows.push({ keys: [key], right, mine, text: q.expl[key] });
