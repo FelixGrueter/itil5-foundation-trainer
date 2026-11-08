@@ -21,13 +21,18 @@ window.APP_CONFIG = {
   exams: [
     { code: 'MP1', title: 'Musterprüfung 1', sub: 'Offizielle PeopleCert-Musterprüfung, Version 5.0', official: true },
     { code: 'MP2', title: 'Musterprüfung 2', sub: 'Offizielle PeopleCert-Musterprüfung, Version 5.0', official: true },
+    // Mock A/B: zusätzliche Übungsfragen (Wayground-Quizzen), eine Erklärung je Frage statt je Option, keine Lehrplan-Referenz/Themenzuordnung
+    { code: 'MOA', title: 'Mock A', sub: 'Zusätzliche Übungsfragen (Wayground), keine offizielle Prüfung', official: false, badge: 'mit Erklärung',
+      hint: 'Zusätzliche Übungsfragen mit Erklärung zur richtigen Antwort – keine offiziellen PeopleCert-Fragen.' },
+    { code: 'MOB', title: 'Mock B', sub: 'Zusätzliche Übungsfragen (Wayground), keine offizielle Prüfung', official: false, badge: 'mit Erklärung',
+      hint: 'Zusätzliche Übungsfragen mit Erklärung zur richtigen Antwort – keine offiziellen PeopleCert-Fragen.' },
   ],
   countStep: 10,                                 // Schieberegler im Trainingsmodus: 10er-Schritte bis zur Katalogsgröße (rechts = „Alle“)
   passRate: 0.65,                                // 65 % → 26 von 40
   examInfo: '60 min für 40 Fragen',              // Text im Tooltip der Tempo-Leiste (Prüfungsregel in Worten)
   secondsPerQuestion: 60 * 60 / 40,              // echte Prüfung: 60 Minuten für 40 Fragen (Countdown bei Simulation); Closed Book
 
-  sourceNote: 'Fragen, Lösungen und Begründungen: ITIL® Foundation Version 5, Musterprüfung 1 und 2 (jeweils Version 5.0, Mai 2026; PeopleCert, offizielle Schulungsunterlagen).',
+  sourceNote: 'Fragen, Lösungen und Begründungen: ITIL® Foundation Version 5, Musterprüfung 1 und 2 (jeweils Version 5.0, Mai 2026; PeopleCert, offizielle Schulungsunterlagen); Mock A und Mock B: zusätzliche Übungsfragen aus Wayground-Quizzen mit Erklärungen (keine offiziellen Prüfungen).',
   trademark: 'ITIL® ist eine eingetragene Marke von PeopleCert International Limited.',
   explHint: 'Mit offizieller Begründung zu jeder Antwortoption und Verweis ins offizielle ITIL-Buch.',
   refHint: '„Siehe x.y“ = Abschnitt im offiziellen ITIL-Buch',

@@ -716,7 +716,7 @@ function viewStart(){
           <input type="radio" name="exam" value="${e.code}" ${e.code === settings.exam ? 'checked' : ''}>
           <span class="dot" aria-hidden="true"></span>
           <span><b>${esc(e.title)}</b><small>${esc(e.sub)}</small>
-            <span class="badge ${e.official ? 'official' : ''}">${e.official ? 'mit Begründungen' : 'nur Lösungen'}</span></span>
+            <span class="badge ${e.official ? 'official' : ''}">${esc(e.badge || (e.official ? 'mit Begründungen' : 'nur Lösungen'))}</span></span>
         </label>`).join('');
 
   // Schieberegler: 10er-Schritte bis zur Katalogsgröße (aufgerundet); ganz rechts = „Alle“ (gespeichert als 0)
@@ -753,9 +753,9 @@ function viewStart(){
   const examName = !examsSel.length ? '' : examsSel.length === 1 ? examOf(examsSel[0]).title : `${examsSel.length} Prüfungen`;
   const plusBlocks = (examName ? ` in ${esc(examName)}` : '') + topicPhrase + (ready && src.id !== 'all' && unitsFrom(narrow(srcPool, topicsSel, examsSel)).flat().length > poolSize[src.id] ? ', ergänzt um die übrigen Teilfragen ihrer Zuordnungsblöcke' : '');
   const lead = isExam
-    ? `${ex.title}: ${n} Fragen ${settings.examOpts.shuffle ? 'in zufälliger Reihenfolge, Antworten gemischt' : 'in Originalreihenfolge'}. ${ex.official
+    ? `${ex.title}: ${n} Fragen ${settings.examOpts.shuffle ? 'in zufälliger Reihenfolge, Antworten gemischt' : 'in Originalreihenfolge'}. ${ex.hint || (ex.official
         ? CFG.explHint
-        : 'Für diese Prüfung liegen nur die Lösungen vor, keine Begründungen.'}`
+        : 'Für diese Prüfung liegen nur die Lösungen vor, keine Begründungen.')}`
     : src.id === 'errors' ? `${n} zufällige Frage${n === 1 ? '' : 'n'} aus ${poolSize.errors === 1 ? 'deiner 1 Fehlerfrage' : `deinen ${poolSize.errors} Fehlerfragen`} (zuletzt falsch beantwortet)${plusBlocks}. Fragen und Antwortoptionen werden jedes Mal neu gemischt.`
     : src.id === 'flagged' ? `${n} zufällige Frage${n === 1 ? '' : 'n'} aus ${poolSize.flagged === 1 ? 'deiner 1 markierten Frage' : `deinen ${poolSize.flagged} markierten Fragen`}${plusBlocks}. Fragen und Antwortoptionen werden jedes Mal neu gemischt.`
     : src.id === 'both' ? `${n} zufällige Fragen aus ${poolSize.both} Fehler- und markierten Fragen${plusBlocks}. Fragen und Antwortoptionen werden jedes Mal neu gemischt.`
