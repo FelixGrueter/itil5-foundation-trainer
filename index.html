@@ -697,7 +697,7 @@ header{background:color-mix(in srgb,var(--bg) 92%,transparent)}
 <script>
 (() => {
   // Versionsparameter bei jeder Änderung an config.js bzw. app.js erhöhen: neue index.html lädt garantiert die passenden Dateien
-  const V = '?v=9', KEY = 'it5-unlock', LOCK = 'it5-gate', TRIES = 3, LOCK_MS = 24 * 3600 * 1000;
+  const V = '?v=10', KEY = 'it5-unlock', LOCK = 'it5-gate', TRIES = 3, LOCK_MS = 24 * 3600 * 1000;
   const $ = id => document.getElementById(id), form = $('gateForm'), err = $('gateErr'), btn = $('gateBtn');
   const rest = [...document.querySelectorAll('body > header, body > main, body > aside, body > footer')];
   rest.forEach(e => e.inert = true);
