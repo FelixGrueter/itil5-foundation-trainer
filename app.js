@@ -487,7 +487,7 @@ function reportQuestion(s, it, i){
   <ul class="op">${opts}</ul>${sharedHtml}
   ${!withExpl && q.rationale ? `<div class="ra"><b>Begründung</b><p>${esc(q.rationale)}</p></div>` : ''}
   ${!withExpl && !q.rationale ? `<div class="ra"><b>Lösung</b><p>Richtig ist ${rightLabel(it)}. Für diese Frage liegt keine Begründung vor.</p></div>` : ''}
-  <p class="meta">${q.topic ? `${esc(q.topic)} · ` : ''}${q.ref ? `Lehrplan ${esc(q.ref)} · ` : ''}Herkunft ${esc(q.origin.join(', '))} · ${q.id}</p>
+  <p class="meta">${q.topic ? `${esc(q.topic)}${!q.ref && CFG.topicNoteShort ? ` (${esc(CFG.topicNoteShort)})` : ''} · ` : ''}${q.ref ? `Lehrplan ${esc(q.ref)} · ` : ''}Herkunft ${esc(q.origin.join(', '))} · ${q.id}</p>
   </div>
 </details>`;
 }
@@ -790,6 +790,7 @@ function viewStart(){
           ${frow('Fragenart', 'Alle Fragen, nur deine Fehlerfragen (zuletzt falsch beantwortet), nur markierte oder beides. Es gilt immer genau eine Auswahl.', sourceChips)}
           ${EXAMS.length > 1 ? frow('Fragequellen', 'Aus welchen Prüfungen geübt wird: „Alle“ oder eine bzw. mehrere Prüfungen (Mehrfachauswahl).', examButtons) : ''}
           ${frow('Themenbereiche', 'Welche Themenbereiche geübt werden: „Alle“ oder ein bzw. mehrere Themen (Mehrfachauswahl).', topicButtons)}
+          ${CFG.topicNote ? `<p class="time-note topic-note">${esc(CFG.topicNote)}</p>` : ''}
         </div>` : ''}
         ${(src.id !== 'all' || topicsSel.length || examsSel.length) && settings.count && n < settings.count ? `<p class="time-note">${poolSize[src.id] ? `Es gibt nur ${poolSize[src.id]} passende Fragen${n !== poolSize[src.id] ? ` (mit vollständigen Zuordnungsblöcken ${n})` : ''} – die Übung wird entsprechend kürzer.` : 'Dafür gibt es noch keine Fragen. Fehlerfragen entstehen aus falsch beantworteten Fragen, markierte über „Markieren“ während einer Prüfung oder Übung.'}</p>` : ''}
       </section>`}
@@ -871,7 +872,7 @@ function viewExam(){
       <div class="fb-body">
         <h3>${withExpl || q.rationale ? 'Begründung' : 'Lösung'}</h3>
         ${body}
-        <div class="ref">${q.ref ? `<span>Lehrplan-Referenz: <code>${esc(q.ref)}</code></span><span>${esc(CFG.refHint)}</span>` : ''}<span>Frage-ID: <code>${q.id}</code> · ${esc(q.origin.join(', '))}</span></div>
+        <div class="ref">${q.ref ? `<span>Lehrplan-Referenz: <code>${esc(q.ref)}</code></span><span>${esc(CFG.refHint)}</span>` : ''}${!q.ref && q.topic && CFG.topicNoteShort ? `<span>Themenbereich: ${esc(q.topic)} (${esc(CFG.topicNoteShort)})</span>` : ''}<span>Frage-ID: <code>${q.id}</code> · ${esc(q.origin.join(', '))}</span></div>
       </div>
     </div>`;
   }
